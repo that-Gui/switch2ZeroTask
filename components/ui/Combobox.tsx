@@ -20,6 +20,7 @@ import {
 //userContext import
 import { UserContext } from '@/app/context/user';
 
+//mock api data for countries CO2 avg emmisions
 const countries = [
 	{
 		name: 'Singapore',
@@ -90,11 +91,14 @@ export function Combobox() {
 								key={index}
 								onSelect={(countryName) => {
 									console.log('label', countryName);
-									// use country name filter through the array of countries and return the coresponding coutry object
 									setValue(
-										countryName.charAt(0).toUpperCase() + countryName.slice(1)
+										countryName
+											.split(' ')
+											.map(
+												(word) => word.charAt(0).toUpperCase() + word.slice(1)
+											)
+											.join(' ')
 									);
-
 									setOpen(false);
 								}}
 							>
