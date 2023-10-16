@@ -3,8 +3,8 @@
 import React from 'react';
 
 type UserState = {
-	country: { name: string; avgCO2: number };
-	purchases: [{ date: Date; treeAmount: number }];
+	country: { name: string | null; avgCO2: number | null };
+	purchases: [{ date: Date; treeAmount: number } | null];
 	upDateCountry: (country: { name: string; avgCO2: number }) => void;
 };
 
@@ -12,8 +12,8 @@ export const UserContext = React.createContext<UserState | null>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = React.useState<UserState>({
-		country: { name: 'Singapore', avgCO2: 8.56 },
-		purchases: [{ date: new Date(), treeAmount: 11 }],
+		country: { name: null, avgCO2: null },
+		purchases: [null],
 		upDateCountry: (country: { name: string; avgCO2: number }) => {
 			setUser({ ...user, country: country });
 		},
@@ -24,8 +24,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}, [user]);
 
 	return (
-		<UserContext.Provider value={{ user, setUser }}>
-			{children}
-		</UserContext.Provider>
+		<UserContext.Provider value={{ ...user }}>{children}</UserContext.Provider>
 	);
 };

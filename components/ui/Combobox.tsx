@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Check, ChevronsUpDown, User } from 'lucide-react';
+import { Check, ChevronsUpDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -59,10 +59,7 @@ export function Combobox() {
 			countries.find((country) => country.name === value) || null;
 		console.log('countryObject', countryObject);
 		if (countryObject) {
-			userData?.setUser({
-				...userData.user,
-				country: countryObject,
-			});
+			userData?.upDateCountry(countryObject);
 		}
 	}, [value]);
 
