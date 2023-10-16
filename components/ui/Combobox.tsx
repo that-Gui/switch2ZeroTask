@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, User } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -17,33 +17,53 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/Popover';
+//userContext import
+import { UserContext } from '@/app/context/user';
 
-const frameworks = [
+const countries = [
 	{
-		value: 'next.js',
-		label: 'Next.js',
+		name: 'Singapore',
+		avgCO2: 8.56,
 	},
 	{
-		value: 'sveltekit',
-		label: 'SvelteKit',
+		name: 'United Kingdom',
+		avgCO2: 5.55,
 	},
 	{
-		value: 'nuxt.js',
-		label: 'Nuxt.js',
+		name: 'Germany',
+		avgCO2: 9.44,
 	},
 	{
-		value: 'remix',
-		label: 'Remix',
+		name: 'China',
+		avgCO2: 7.38,
 	},
 	{
-		value: 'astro',
-		label: 'Astro',
+		name: 'Australia',
+		avgCO2: 17.1,
+	},
+	{
+		name: 'India',
+		avgCO2: 1.91,
 	},
 ];
 
 export function Combobox() {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState('');
+
+	const userData = React.useContext(UserContext);
+
+	React.useEffect(() => {
+		const countryObject =
+			countries.find((country) => country.name === value) || null;
+		console.log('countryObject', countryObject);
+		if (countryObject) {
+			userData?.setUser({
+				...userData.user,
+				country: countryObject,
+			});
+		}
+	}, [value]);
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -55,7 +75,7 @@ export function Combobox() {
 					className='w-[200px] justify-between'
 				>
 					{value
-						? frameworks.find((framework) => framework.value === value)?.label
+						? countries.find((country) => country.name === value)?.name
 						: 'Select Country...'}
 					<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 				</Button>
@@ -65,21 +85,26 @@ export function Combobox() {
 					<CommandInput placeholder='Search Country...' />
 					<CommandEmpty>Country not found.</CommandEmpty>
 					<CommandGroup>
-						{frameworks.map((framework) => (
+						{countries.map((country, index) => (
 							<CommandItem
-								key={framework.value}
-								onSelect={(currentValue) => {
-									setValue(currentValue === value ? '' : currentValue);
+								key={index}
+								onSelect={(countryName) => {
+									console.log('label', countryName);
+									// use country name filter through the array of countries and return the coresponding coutry object
+									setValue(
+										countryName.charAt(0).toUpperCase() + countryName.slice(1)
+									);
+
 									setOpen(false);
 								}}
 							>
 								<Check
 									className={cn(
 										'mr-2 h-4 w-4',
-										value === framework.value ? 'opacity-100' : 'opacity-0'
+										value === country.name ? 'opacity-100' : 'opacity-0'
 									)}
 								/>
-								{framework.label}
+								{country.name}
 							</CommandItem>
 						))}
 					</CommandGroup>

@@ -7,9 +7,10 @@ import DataSection from '@/components/DataSection';
 
 export default function Home() {
 	return (
-		<main className='flex min-h-screen flex-col items-center gap-24 p-24'>
-			<Hero />
+		<main className='flex min-h-screen flex-col items-center gap-8 p-24'>
 			<UserProvider>
+				<Hero />
+
 				<Summary />
 				<DataSection />
 			</UserProvider>

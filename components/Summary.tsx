@@ -12,7 +12,14 @@ import { Combobox } from './ui/Combobox';
 export default function Summary() {
 	return (
 		<div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-			<Combobox />
+			<Card>
+				<CardHeader>
+					<CardTitle>Where do you live?</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Combobox />
+				</CardContent>
+			</Card>
 
 			<Card>
 				<CardHeader>

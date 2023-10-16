@@ -1,39 +1,31 @@
 'use client';
 
-import * as React from 'react';
+import React from 'react';
 
-const initialUserState = {
-	country: { name: 'singapore', avgCO2: 8.56 },
-	purchases: [{ date: new Date(), treeAmount: 0 }],
-	updateUserCountry: (country: any) => {},
-	updateUserPurchases: (purchases: any) => {},
+type UserState = {
+	country: { name: string; avgCO2: number };
+	purchases: [{ date: Date; treeAmount: number }];
+	upDateCountry: (country: { name: string; avgCO2: number }) => void;
 };
 
-export const UserContext = React.createContext(initialUserState);
+export const UserContext = React.createContext<UserState | null>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-	const [user, setUser] = React.useState(initialUserState);
-
-	const updateUserCountry = (country: any) => {
-		setUser({ ...user, country: country });
-	};
-
-	const updateUserPurchases = (purchases: any) => {
-		setUser({ ...user, purchases: purchases });
-	};
+	const [user, setUser] = React.useState<UserState>({
+		country: { name: 'Singapore', avgCO2: 8.56 },
+		purchases: [{ date: new Date(), treeAmount: 11 }],
+		upDateCountry: (country: { name: string; avgCO2: number }) => {
+			setUser({ ...user, country: country });
+		},
+	});
 
 	React.useEffect(() => {
 		console.log('user changed', user);
 	}, [user]);
 
-	const contextValue = {
-		country: user.country,
-		purchases: user.purchases,
-		updateUserCountry: (country: any) => updateUserCountry(country),
-		updateUserPurchases: (purchases: any) => updateUserPurchases(purchases),
-	};
-
 	return (
-		<UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
+		<UserContext.Provider value={{ user, setUser }}>
+			{children}
+		</UserContext.Provider>
 	);
 };
