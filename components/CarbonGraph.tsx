@@ -18,8 +18,13 @@ import { UserContext } from '../app/context/user';
 export default function CarbonGraph() {
 	const userData = React.useContext(UserContext);
 	let ct = userData?.country?.avgCO2 ?? 0;
+	let data = userData?.offsetArray ?? [];
 
-	const data = [
+	const Tdata = data.map((item) => {
+		return { ...item, Target: ct };
+	});
+
+	const dota = [
 		{ year: '2020', Target: ct, Offset: 0 },
 		{ year: '2020', Target: ct, Offset: 24 },
 		{ year: '2020', Target: ct, Offset: 48 },
@@ -37,7 +42,7 @@ export default function CarbonGraph() {
 
 	return (
 		<ResponsiveContainer width='100%' height={300}>
-			<LineChart data={data}>
+			<LineChart data={dota}>
 				<CartesianGrid strokeDasharray='3 3' />
 				<XAxis dataKey='year' fontSize={16} tickLine={false} axisLine={false} />
 				<YAxis />

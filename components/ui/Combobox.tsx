@@ -20,35 +20,11 @@ import {
 //userContext import
 import { UserContext } from '@/app/context/user';
 
-//mock api data for countries CO2 avg emmisions
-const countries = [
-	{
-		name: 'Singapore',
-		avgCO2: 8605.917,
-	},
-	{
-		name: 'United Kingdom',
-		avgCO2: 5639.06,
-	},
-	{
-		name: 'Germany',
-		avgCO2: 9591.483,
-	},
-	{
-		name: 'China',
-		avgCO2: 7498.426,
-	},
-	{
-		name: 'Australia',
-		avgCO2: 17374.4,
-	},
-	{
-		name: 'India',
-		avgCO2: 1940.65,
-	},
-];
+interface ComboboxProps {
+	serverCountries: Array<{ name: string; avgCO2: number }>;
+}
 
-export function Combobox() {
+export function Combobox({ serverCountries }: ComboboxProps) {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState('');
 
@@ -56,7 +32,7 @@ export function Combobox() {
 
 	React.useEffect(() => {
 		const countryObject =
-			countries.find((country) => country.name === value) || null;
+			serverCountries.find((country) => country.name === value) || null;
 		if (countryObject) {
 			userData?.upDateCountry(countryObject);
 		}
@@ -72,7 +48,7 @@ export function Combobox() {
 					className='w-[200px] justify-between'
 				>
 					{value
-						? countries.find((country) => country.name === value)?.name
+						? serverCountries.find((country) => country.name === value)?.name
 						: 'Select Country...'}
 					<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 				</Button>
@@ -82,7 +58,7 @@ export function Combobox() {
 					<CommandInput placeholder='Search Country...' />
 					<CommandEmpty>Country not found.</CommandEmpty>
 					<CommandGroup>
-						{countries.map((country, index) => (
+						{serverCountries.map((country, index) => (
 							<CommandItem
 								key={index}
 								onSelect={(countryName) => {

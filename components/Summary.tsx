@@ -13,7 +13,11 @@ import COneutral from './COneutral';
 import TreesMonthly from './TreesMonhtly';
 import TreePlanting from './TreePlanting';
 
-export default function Summary() {
+export default async function Summary() {
+	const contries = await fetch('http://localhost:3000/api/countries', {
+		cache: 'default',
+	}).then((res) => res.json());
+
 	return (
 		<div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
 			<Card>
@@ -21,7 +25,7 @@ export default function Summary() {
 					<CardTitle>Where do you live?</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<Combobox />
+					<Combobox serverCountries={contries} />
 					<AvgCO2 />
 				</CardContent>
 			</Card>

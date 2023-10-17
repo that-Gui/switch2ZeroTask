@@ -53,7 +53,6 @@ export default function AddTrees() {
 								year: year,
 								treeAmount: trees,
 							});
-							console.log(data);
 							reset();
 						})}
 						className='flex flex-col gap-4'
