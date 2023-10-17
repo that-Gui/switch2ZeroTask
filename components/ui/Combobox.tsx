@@ -24,27 +24,27 @@ import { UserContext } from '@/app/context/user';
 const countries = [
 	{
 		name: 'Singapore',
-		avgCO2: 8.56,
+		avgCO2: 8605.917,
 	},
 	{
 		name: 'United Kingdom',
-		avgCO2: 5.55,
+		avgCO2: 5639.06,
 	},
 	{
 		name: 'Germany',
-		avgCO2: 9.44,
+		avgCO2: 9591.483,
 	},
 	{
 		name: 'China',
-		avgCO2: 7.38,
+		avgCO2: 7498.426,
 	},
 	{
 		name: 'Australia',
-		avgCO2: 17.1,
+		avgCO2: 17374.4,
 	},
 	{
 		name: 'India',
-		avgCO2: 1.91,
+		avgCO2: 1940.65,
 	},
 ];
 
@@ -57,7 +57,6 @@ export function Combobox() {
 	React.useEffect(() => {
 		const countryObject =
 			countries.find((country) => country.name === value) || null;
-		console.log('countryObject', countryObject);
 		if (countryObject) {
 			userData?.upDateCountry(countryObject);
 		}
@@ -87,7 +86,6 @@ export function Combobox() {
 							<CommandItem
 								key={index}
 								onSelect={(countryName) => {
-									console.log('label', countryName);
 									setValue(
 										countryName
 											.split(' ')

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
 	Table,
@@ -9,27 +11,35 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Button } from './ui/Button';
+import { UserContext } from '@/app/context/user';
 
 export default function TreeTable() {
+	const userData = React.useContext(UserContext);
 	return (
 		<Table>
 			<TableHeader>
 				<TableRow>
-					<TableHead className='w-[100px]'>#</TableHead>
+					<TableHead>#</TableHead>
 					<TableHead>Date</TableHead>
 					<TableHead>Number of Trees</TableHead>
-					<TableHead> </TableHead>
+					<TableHead></TableHead>
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				<TableRow>
-					<TableCell className='font-medium'>1</TableCell>
-					<TableCell>11/11/2011</TableCell>
-					<TableCell>10</TableCell>
-					<TableCell>
-						<Button>Remove</Button>
-					</TableCell>
-				</TableRow>
+				{userData?.purchases.map((purchase, index) => (
+					<TableRow key={index}>
+						<TableCell className='font-medium'>{index + 1}</TableCell>
+						<TableCell>
+							{purchase?.month}/{purchase?.year}
+						</TableCell>
+						<TableCell>{purchase?.treeAmount}</TableCell>
+						<TableCell>
+							<Button onClick={() => userData.deletePurchase(index)}>
+								Remove
+							</Button>
+						</TableCell>
+					</TableRow>
+				))}
 			</TableBody>
 		</Table>
 	);

@@ -8,6 +8,10 @@ import {
 	CardTitle,
 } from '@/components/ui/Card';
 import { Combobox } from './ui/Combobox';
+import AvgCO2 from './avgCO2';
+import COneutral from './COneutral';
+import TreesMonthly from './TreesMonhtly';
+import TreePlanting from './TreePlanting';
 
 export default function Summary() {
 	return (
@@ -18,47 +22,15 @@ export default function Summary() {
 				</CardHeader>
 				<CardContent>
 					<Combobox />
+					<AvgCO2 />
 				</CardContent>
 			</Card>
 
-			<Card>
-				<CardHeader>
-					<CardTitle>carbon neutral date </CardTitle>
-					<CardDescription>Card Description</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<p>Card Content</p>
-				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
-			</Card>
+			<COneutral />
 
-			<Card>
-				<CardHeader>
-					<CardTitle>monthly tree maintenace cost component</CardTitle>
-					<CardDescription>Card Description</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<p>Card Content</p>
-				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
-			</Card>
+			<TreesMonthly />
 
-			<Card>
-				<CardHeader>
-					<CardTitle>tree count and planting cost component</CardTitle>
-					<CardDescription>Card Description</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<p>Card Content</p>
-				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
-			</Card>
+			<TreePlanting />
 		</div>
 	);
 }
