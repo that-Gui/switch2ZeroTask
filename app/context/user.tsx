@@ -18,6 +18,31 @@ type UserState = {
 
 export const UserContext = React.createContext<UserState | null>(null);
 
+function offsetarr(input: UserState['purchases']) {
+	const output = [];
+
+	for (const item of input) {
+		const { year, treeAmount }: any = item;
+		let offsetSteps = (treeAmount * 28.5) / 6;
+		let offset = 0;
+
+		for (let i = 0; i < 10; i++) {
+			if (i < 7) {
+				offset = offsetSteps * i;
+			} else {
+				offset = offset;
+			}
+
+			output.push({
+				year: String(year),
+				offset: Number(offset.toFixed(2)),
+			});
+		}
+	}
+
+	return output;
+}
+
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = React.useState<UserState>({
 		country: { name: null, avgCO2: null },
@@ -70,6 +95,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 						}
 						return total;
 					}, 0),
+					offsetArray: offsetarr(updatedPurchases),
 				};
 			});
 		},

@@ -16,6 +16,8 @@ import {
 export default function AvgCO2() {
 	const userData = React.useContext(UserContext);
 
+	const [year, setYear] = React.useState(false);
+
 	return (
 		<Card>
 			<CardHeader>
